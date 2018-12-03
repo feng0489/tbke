@@ -15,23 +15,14 @@ public class User {
     float price;//实际收入
     float totalPrice;//生产收入,即所有商品价格的综合
     float allprice;//总的收入记录
-<<<<<<< HEAD
     String createTime;//加入时间
-=======
-    int createTime;//加入时间
->>>>>>> 7af2893d183a0f2b21580394bb9057f25568fa1e
     String referralLink;//推广链接
     int userGrade;//用户等级
     String userNick;//用户昵称
     String userPhoto;//用户头像
-<<<<<<< HEAD
     String lastLogin;//用户最后登录时间
-=======
-    int lastLogin;//用户最后登录时间
->>>>>>> 7af2893d183a0f2b21580394bb9057f25568fa1e
     int userIp;//登录的IP地址
     int dervice;//登录的设备：1pc,2安卓,3苹果
-
 
     public Integer getId() {
         return id;
@@ -113,17 +104,13 @@ public class User {
         this.allprice = allprice;
     }
 
-<<<<<<< HEAD
-
-=======
-    public int getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
->>>>>>> 7af2893d183a0f2b21580394bb9057f25568fa1e
 
     public String getReferralLink() {
         return referralLink;
@@ -157,27 +144,11 @@ public class User {
         this.userPhoto = userPhoto;
     }
 
-<<<<<<< HEAD
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
     public String getLastLogin() {
         return lastLogin;
     }
 
     public void setLastLogin(String lastLogin) {
-=======
-    public int getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(int lastLogin) {
->>>>>>> 7af2893d183a0f2b21580394bb9057f25568fa1e
         this.lastLogin = lastLogin;
     }
 
