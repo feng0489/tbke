@@ -15,12 +15,12 @@ public class User {
     float price;//实际收入
     float totalPrice;//生产收入,即所有商品价格的综合
     float allprice;//总的收入记录
-    int createTime;//加入时间
+    String createTime;//加入时间
     String referralLink;//推广链接
     int userGrade;//用户等级
     String userNick;//用户昵称
     String userPhoto;//用户头像
-    int lastLogin;//用户最后登录时间
+    String lastLogin;//用户最后登录时间
     int userIp;//登录的IP地址
     int dervice;//登录的设备：1pc,2安卓,3苹果
 
@@ -105,13 +105,7 @@ public class User {
         this.allprice = allprice;
     }
 
-    public int getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(int createTime) {
-        this.createTime = createTime;
-    }
 
     public String getReferralLink() {
         return referralLink;
@@ -145,11 +139,19 @@ public class User {
         this.userPhoto = userPhoto;
     }
 
-    public int getLastLogin() {
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(int lastLogin) {
+    public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
     }
 
