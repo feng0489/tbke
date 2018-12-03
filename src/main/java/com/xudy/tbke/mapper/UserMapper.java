@@ -17,7 +17,11 @@ public interface UserMapper {
 
 
     @Insert("INSERT INTO user (username,password,phone,weixin,father,create_time,referral_link,user_grade,user_nick,user_photo,last_login,user_ip,dervice) " +
+<<<<<<< HEAD
             "values (#{username},#{password},#{phone},#{weixin},#{father},#{createTime},#{referralLink},#{userGrade},#{userNick},#{userPhoto},#{lastLogin},#{userIp},#{dervice})")
+=======
+            "values (#{username},#{password},#{phone},#{weixin},#{father},#{create_time},#{referral_link},#{user_grade},#{user_nick},#{user_photo},#{last_login},#{user_ip},#{dervice})")
+>>>>>>> 7af2893d183a0f2b21580394bb9057f25568fa1e
     int insert(User user);
 
     @Select("select * from user where #{where};")
