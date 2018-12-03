@@ -26,5 +26,6 @@ public class ShopController {
         resp.setMsg("ok");
         List<Map<String,Object>> list = shopService.listShop();
     return new Result(resp,list);
+
     }
 }

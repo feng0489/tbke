@@ -4,8 +4,28 @@
 
     <resultMap id="ShopResultMap" type="com.xudy.tbke.model.Shop" >
         <id column="id" property="id" jdbcType="BIGINT" />
-        <id column="reason" property="reason" jdbcType="VARCHAR" />
-        <id column="files" property="files" jdbcType="VARCHAR" />
+        <id column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+        <id column="free_price" property="freePrice" jdbcType="DOUBLE" />
+        <id column="price" property="price" jdbcType="DOUBLE" />
+        <id column="commission_rate" property="commissionRate" jdbcType="INTEGER" />
+        <id column="coupon_total_count" property="couponTotalCount" jdbcType="INTEGER" />
+        <id column="coupon_info" property="couponInfo" jdbcType="DOUBLE" />
+        <id column="coupon_remain_count" property="couponRemainCount" jdbcType="INTEGER" />
+        <id column="coupon_click_url" property="couponClickUrl" jdbcType="VARCHAR" />
+        <id column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+        <id column="item_description" property="itemDescription" jdbcType="VARCHAR" />
+        <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <id column="title" property="title" jdbcType="VARCHAR" />
+        <id column="shop_from" property="shopFrom" jdbcType="VARCHAR" />
+        <id column="free_start_time" property="freeStartTime" jdbcType="VARCHAR" />
+        <id column="free_end_time" property="freeEndTime" jdbcType="VARCHAR" />
+        <id column="goods_sum" property="goodsSum" jdbcType="INTEGER" />
+        <id column="retStatus" property="retStatus" jdbcType="TINYINT" />
+        <id column="itemId" property="itemId" jdbcType="VARCHAR" />
+        <id column="lensId" property="lensId" jdbcType="VARCHAR" />
+        <id column="couponKey" property="couponKey" jdbcType="VARCHAR" />
+
+
         <!-- ofType指定students集合中的对象类型 -->
         <!--<association property="claimFilesModelList" javaType="cn.group.xudy.model.ClaimFilesModel">-->
         <!--</association>-->
@@ -14,6 +34,9 @@
             <!--<id column="file_name" property="fileName" jdbcType="VARCHAR" />-->
         <!--</collection>-->
     </resultMap>
+
+
+
 
     <sql id="Shop_Column_List" >
         id
@@ -31,8 +54,8 @@
 
 
     <insert id="insertShop">
-        INSERT INTO shop(total_price, free_price, price, commission_rate, coupon_total_count, coupon_info, coupon_remain_count, coupon_click_url, photo_url, shop_title, shop_nick, item_description, shop_id, title, shop_from, free_start_time, free_end_time, goods_sum, shop_type) " +
-                          "VALUES (#{total_price}, #{free_price}, #{price},  #{commission_rate}, #{coupon_total_count}, #{coupon_info}, #{coupon_remain_count}, #{coupon_click_url}, #{photo_url}, #{shop_title}, #{shop_nick}, #{item_description}, #{shop_id}, #{title}, #{shop_from}, #{free_start_time}, #{free_end_time}, #{goods_sum}, #{shop_type});
+        INSERT INTO shop(total_price, free_price, price, commission_rate, coupon_total_count, coupon_info, coupon_remain_count, coupon_click_url, photo_url, shop_title, shop_nick, item_description, shop_id, title, shop_from, free_start_time, free_end_time, goods_sum, shop_type,retStatus,itemId,lensId,couponKey)
+                          VALUES (#{total_price}, #{free_price}, #{price},  #{commission_rate}, #{coupon_total_count}, #{coupon_info}, #{coupon_remain_count}, #{coupon_click_url}, #{photo_url}, #{shop_title}, #{shop_nick}, #{item_description}, #{shop_id}, #{title}, #{shop_from}, #{free_start_time}, #{free_end_time}, #{goods_sum}, #{shop_type},#{retStatus},#{itemId},#{lensId},#{couponKey});
     </insert>
 
     <!--<select id="getStudent" parameterType="int" resultType="cn.group.xudy.model.ClaimFilesModel">-->

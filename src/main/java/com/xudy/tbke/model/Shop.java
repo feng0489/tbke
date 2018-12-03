@@ -6,25 +6,32 @@ public class Shop {
 
     Integer id;
     float totalPrice; //商品价格
-    float free_price; //商品优惠金额
+    float freePrice; //商品优惠金额
     float price; //实际价格
-    int commission_rate;//佣金比率(%)
-    int coupon_total_count;//优惠券总量
-    int coupon_info;//优惠券面额
-    int coupon_remain_count;//优惠券剩余量
-    String coupon_click_url;//商品跳转地址
-    String photo_url;//图片地址
-    String shop_title;//店铺名称
-    String shop_nick;//店铺昵称
-    String item_description;//宝贝描述(推荐理由)
-    String shop_id;//店铺id
+    float commissionRate;//佣金比率(%)
+    int couponTotalCount;//优惠券总量
+    float couponInfo;//优惠券面额
+    int couponRemainCount;//优惠券剩余量
+    String couponClickUrl;//商品跳转地址
+    String photoUrl;//图片地址
+    String shopTitle;//店铺名称
+    String shopNick;//店铺昵称
+    String itemDescription;//宝贝描述(推荐理由)
+    String shopId;//店铺id
     String title;//商户品标题
-    String shop_from;//商品所在的平台
-    int free_start_time;//优惠开始时间
-    int free_end_time;//优惠结束时间
-    int goods_sum;//商品数量
-    int shop_type;//商店类型:0表示集市，1表示商城
-    
+    String shopFrom;//商品所在的平台
+    String freeStartTime;//优惠开始时间
+    String freeEndTime;//优惠结束时间
+    int goodsSum;//商品数量
+    int shopType;//商店类型:0表示集市，1表示商城
+    int retStatus;//优惠卷状态
+    String itemId;//itemid 保留字段
+    String lensId;//lensId 保留字段
+    String couponKey;//couponKey 保留字段
+
+
+
+
     public Integer getId() {
         return id;
     }
@@ -41,12 +48,12 @@ public class Shop {
         this.totalPrice = totalPrice;
     }
 
-    public float getFree_price() {
-        return free_price;
+    public float getFreePrice() {
+        return freePrice;
     }
 
-    public void setFree_price(float free_price) {
-        this.free_price = free_price;
+    public void setFreePrice(float freePrice) {
+        this.freePrice = freePrice;
     }
 
     public float getPrice() {
@@ -57,84 +64,84 @@ public class Shop {
         this.price = price;
     }
 
-    public int getCommission_rate() {
-        return commission_rate;
+    public float getCommissionRate() {
+        return commissionRate;
     }
 
-    public void setCommission_rate(int commission_rate) {
-        this.commission_rate = commission_rate;
+    public void setCommissionRate(float commissionRate) {
+        this.commissionRate = commissionRate;
     }
 
-    public int getCoupon_total_count() {
-        return coupon_total_count;
+    public int getCouponTotalCount() {
+        return couponTotalCount;
     }
 
-    public void setCoupon_total_count(int coupon_total_count) {
-        this.coupon_total_count = coupon_total_count;
+    public void setCouponTotalCount(int couponTotalCount) {
+        this.couponTotalCount = couponTotalCount;
     }
 
-    public int getCoupon_info() {
-        return coupon_info;
+    public float getCouponInfo() {
+        return couponInfo;
     }
 
-    public void setCoupon_info(int coupon_info) {
-        this.coupon_info = coupon_info;
+    public void setCouponInfo(float couponInfo) {
+        this.couponInfo = couponInfo;
     }
 
-    public int getCoupon_remain_count() {
-        return coupon_remain_count;
+    public int getCouponRemainCount() {
+        return couponRemainCount;
     }
 
-    public void setCoupon_remain_count(int coupon_remain_count) {
-        this.coupon_remain_count = coupon_remain_count;
+    public void setCouponRemainCount(int couponRemainCount) {
+        this.couponRemainCount = couponRemainCount;
     }
 
-    public String getCoupon_click_url() {
-        return coupon_click_url;
+    public String getCouponClickUrl() {
+        return couponClickUrl;
     }
 
-    public void setCoupon_click_url(String coupon_click_url) {
-        this.coupon_click_url = coupon_click_url;
+    public void setCouponClickUrl(String couponClickUrl) {
+        this.couponClickUrl = couponClickUrl;
     }
 
-    public String getPhoto_url() {
-        return photo_url;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto_url(String photo_url) {
-        this.photo_url = photo_url;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
-    public String getShop_title() {
-        return shop_title;
+    public String getShopTitle() {
+        return shopTitle;
     }
 
-    public void setShop_title(String shop_title) {
-        this.shop_title = shop_title;
+    public void setShopTitle(String shopTitle) {
+        this.shopTitle = shopTitle;
     }
 
-    public String getShop_nick() {
-        return shop_nick;
+    public String getShopNick() {
+        return shopNick;
     }
 
-    public void setShop_nick(String shop_nick) {
-        this.shop_nick = shop_nick;
+    public void setShopNick(String shopNick) {
+        this.shopNick = shopNick;
     }
 
-    public String getItem_description() {
-        return item_description;
+    public String getItemDescription() {
+        return itemDescription;
     }
 
-    public void setItem_description(String item_description) {
-        this.item_description = item_description;
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
-    public String getShop_id() {
-        return shop_id;
+    public String getShopId() {
+        return shopId;
     }
 
-    public void setShop_id(String shop_id) {
-        this.shop_id = shop_id;
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 
     public String getTitle() {
@@ -145,43 +152,75 @@ public class Shop {
         this.title = title;
     }
 
-    public String getShop_from() {
-        return shop_from;
+    public String getShopFrom() {
+        return shopFrom;
     }
 
-    public void setShop_from(String shop_from) {
-        this.shop_from = shop_from;
+    public void setShopFrom(String shopFrom) {
+        this.shopFrom = shopFrom;
     }
 
-    public int getFree_start_time() {
-        return free_start_time;
+    public String getFreeStartTime() {
+        return freeStartTime;
     }
 
-    public void setFree_start_time(int free_start_time) {
-        this.free_start_time = free_start_time;
+    public void setFreeStartTime(String freeStartTime) {
+        this.freeStartTime = freeStartTime;
     }
 
-    public int getFree_end_time() {
-        return free_end_time;
+    public String getFreeEndTime() {
+        return freeEndTime;
     }
 
-    public void setFree_end_time(int free_end_time) {
-        this.free_end_time = free_end_time;
+    public void setFreeEndTime(String freeEndTime) {
+        this.freeEndTime = freeEndTime;
     }
 
-    public int getGoods_sum() {
-        return goods_sum;
+    public int getGoodsSum() {
+        return goodsSum;
     }
 
-    public void setGoods_sum(int goods_sum) {
-        this.goods_sum = goods_sum;
+    public void setGoodsSum(int goodsSum) {
+        this.goodsSum = goodsSum;
     }
 
-    public int getShop_type() {
-        return shop_type;
+    public int getShopType() {
+        return shopType;
     }
 
-    public void setShop_type(int shop_type) {
-        this.shop_type = shop_type;
+    public void setShopType(int shopType) {
+        this.shopType = shopType;
+    }
+
+    public int getRetStatus() {
+        return retStatus;
+    }
+
+    public void setRetStatus(int retStatus) {
+        this.retStatus = retStatus;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getLensId() {
+        return lensId;
+    }
+
+    public void setLensId(String lensId) {
+        this.lensId = lensId;
+    }
+
+    public String getCouponKey() {
+        return couponKey;
+    }
+
+    public void setCouponKey(String couponKey) {
+        this.couponKey = couponKey;
     }
 }
