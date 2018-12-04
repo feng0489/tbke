@@ -55,7 +55,7 @@ public class Common {
     public static void main(String[] args) {
         Common con = new Common();
         System.out.println(con.dateToStamp("2018-12-03 18:22:49",true));//1543890169 时间转为时间戳
-        System.out.println(con.dateToStamp("1543890169",false));//2018-12-03 18:22:49 时间戳转为时间
+        System.out.println(con.dateToStamp("1543910400",false));//2018-12-03 18:22:49 时间戳转为时间
     }
 
 

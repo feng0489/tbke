@@ -10,6 +10,7 @@ public class User {
     String password;
     String phone;
     String weixin;
+    String zhifubao;//支付宝
     String father;//推荐该用户的人
     String sun;//该用户推荐的人
     float price;//实际收入
@@ -23,6 +24,7 @@ public class User {
     String lastLogin;//用户最后登录时间
     int userIp;//登录的IP地址
     int dervice;//登录的设备：1pc,2安卓,3苹果
+    int accZhifubao;//是否授权支付宝：0不是，1是
 
     public Integer getId() {
         return id;
@@ -166,5 +168,22 @@ public class User {
 
     public void setDervice(int dervice) {
         this.dervice = dervice;
+    }
+
+
+    public String getZhifubao() {
+        return zhifubao;
+    }
+
+    public void setZhifubao(String zhifubao) {
+        this.zhifubao = zhifubao;
+    }
+
+    public int getAccZhifubao() {
+        return accZhifubao;
+    }
+
+    public void setAccZhifubao(int accZhifubao) {
+        this.accZhifubao = accZhifubao;
     }
 }

@@ -9,9 +9,9 @@ public class Shop {
     float freePrice; //商品优惠金额
     float price; //实际价格
     float commissionRate;//佣金比率(%)
-    int couponTotalCount;//优惠券总量
+    Integer couponTotalCount;//优惠券总量
     float couponInfo;//优惠券面额
-    int couponRemainCount;//优惠券剩余量
+    Integer couponRemainCount;//优惠券剩余量
     String couponClickUrl;//商品跳转地址
     String photoUrl;//图片地址
     String shopTitle;//店铺名称
@@ -22,15 +22,13 @@ public class Shop {
     String shopFrom;//商品所在的平台
     String freeStartTime;//优惠开始时间
     String freeEndTime;//优惠结束时间
-    int goodsSum;//商品数量
-    int shopType;//商店类型:0表示集市，1表示商城
-    int retStatus;//优惠卷状态
+    Integer goodsSum;//商品数量
+    Integer shopType;//商店类型:0表示集市，1表示商城
+    Integer retStatus;//优惠卷状态
     String itemId;//itemid 保留字段
     String lensId;//lensId 保留字段
     String couponKey;//couponKey 保留字段
-
-
-
+    Integer count;//统计
 
     public Integer getId() {
         return id;
@@ -72,11 +70,11 @@ public class Shop {
         this.commissionRate = commissionRate;
     }
 
-    public int getCouponTotalCount() {
+    public Integer getCouponTotalCount() {
         return couponTotalCount;
     }
 
-    public void setCouponTotalCount(int couponTotalCount) {
+    public void setCouponTotalCount(Integer couponTotalCount) {
         this.couponTotalCount = couponTotalCount;
     }
 
@@ -88,11 +86,11 @@ public class Shop {
         this.couponInfo = couponInfo;
     }
 
-    public int getCouponRemainCount() {
+    public Integer getCouponRemainCount() {
         return couponRemainCount;
     }
 
-    public void setCouponRemainCount(int couponRemainCount) {
+    public void setCouponRemainCount(Integer couponRemainCount) {
         this.couponRemainCount = couponRemainCount;
     }
 
@@ -176,27 +174,27 @@ public class Shop {
         this.freeEndTime = freeEndTime;
     }
 
-    public int getGoodsSum() {
+    public Integer getGoodsSum() {
         return goodsSum;
     }
 
-    public void setGoodsSum(int goodsSum) {
+    public void setGoodsSum(Integer goodsSum) {
         this.goodsSum = goodsSum;
     }
 
-    public int getShopType() {
+    public Integer getShopType() {
         return shopType;
     }
 
-    public void setShopType(int shopType) {
+    public void setShopType(Integer shopType) {
         this.shopType = shopType;
     }
 
-    public int getRetStatus() {
+    public Integer getRetStatus() {
         return retStatus;
     }
 
-    public void setRetStatus(int retStatus) {
+    public void setRetStatus(Integer retStatus) {
         this.retStatus = retStatus;
     }
 
@@ -222,5 +220,13 @@ public class Shop {
 
     public void setCouponKey(String couponKey) {
         this.couponKey = couponKey;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

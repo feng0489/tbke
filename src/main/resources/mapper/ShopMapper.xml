@@ -24,6 +24,7 @@
         <id column="itemId" property="itemId" jdbcType="VARCHAR" />
         <id column="lensId" property="lensId" jdbcType="VARCHAR" />
         <id column="couponKey" property="couponKey" jdbcType="VARCHAR" />
+        <id column="count" property="count" jdbcType="INTEGER" />
 
 
         <!-- ofType指定students集合中的对象类型 -->
@@ -50,6 +51,11 @@
     <select id="selectShopById">
         SELECT * FROM shop WHERE id=#{id}
     </select>
+
+    <select id="fingLastStartTime"  resultType="java.lang.Integer">
+        select count(id) as count from shop where free_start_time=#{freeStartTime} and itemId=#{itmeId}
+    </select>
+
 
 
 

@@ -16,8 +16,8 @@ public interface UserMapper {
     List<User> selectById(int id);
 
 
-    @Insert("INSERT INTO user (username,password,phone,weixin,father,create_time,referral_link,user_grade,user_nick,user_photo,last_login,user_ip,dervice) " +
-            "values (#{username},#{password},#{phone},#{weixin},#{father},#{createTime},#{referralLink},#{userGrade},#{userNick},#{userPhoto},#{lastLogin},#{userIp},#{dervice})")
+    @Insert("INSERT INTO user (username,password,phone,weixin,zhifubao,father,create_time,referral_link,user_grade,user_nick,user_photo,last_login,user_ip,dervice,acc_zhifubao) " +
+            "values (#{username},#{password},#{phone},#{weixin},#{zhifubao},#{father},#{createTime},#{referralLink},#{userGrade},#{userNick},#{userPhoto},#{lastLogin},#{userIp},#{dervice},#{accZhifubao})")
     int insert(User user);
 
     @Select("select * from user where #{where};")

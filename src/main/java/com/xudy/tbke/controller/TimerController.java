@@ -1,7 +1,7 @@
 package com.xudy.tbke.controller;
 
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.xudy.tbke.config.Common;
 import com.xudy.tbke.config.HttpUtils;
 import com.xudy.tbke.model.Shop;
@@ -38,58 +38,113 @@ public class TimerController {
     }
     @Scheduled(fixedRate = 10000)
     private void addShop(){
+        long time1=System.currentTimeMillis();
+        Common con = new Common();
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("pid", "mm_29947720_14832832_57874820");
         parameters.put("category", "16,50006843");
         parameters.put("queryCount", "500");
         String result = HttpUtils.httpGet("http://uland.taobao.com/cp/coupon_list", parameters);
-        Gson gson = new Gson();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map = gson.fromJson(result, map.getClass());
-        Map<String, Object> couponList = (Map<String, Object>) map.get("result");
-        ArrayList<Object> maparray = (ArrayList<Object>) couponList.get("couponList");
-        Map<Integer,Object> shops = new HashMap<Integer, Object>();
-        Iterator<Object> iter = maparray.iterator();
-        long time1=System.currentTimeMillis();
-        int i=0;
-        while(iter.hasNext()){  //执行过程中会执行数据锁定，性能稍差，若在循环过程中要去掉某个元素只能调用iter.remove()方法。
-            shops.put(i,iter.next());
-            i++;
-        }
-        Shop shop = new Shop();
-        for (Integer key : shops.keySet()) {
-            //System.out.println("Key = " + shops.get(key)+"\n");
-            Map<String, Object> shopt = (Map<String, Object>) shops.get(key);
-            Map<String, Object> item = (Map<String, Object>) shopt.get("item");
-            shop.setTotalPrice(Float.parseFloat((String)item.get("reservePrice")));
-            shop.setFreePrice(Float.parseFloat((String)item.get("discountPrice")));
-            float price = Float.parseFloat((String)item.get("reservePrice"))-Float.parseFloat((String)item.get("discountPrice"));
-            shop.setPrice(price);
-            shop.setCommissionRate(Float.parseFloat((String)shopt.get("startFee")));
-            shop.setCouponTotalCount( shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")) );
-            shop.setCouponInfo(Float.parseFloat((String)item.get("discountPrice")));
-            shop.setCouponRemainCount(shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")));
-            shop.setCouponClickUrl((String)item.get("http:"+"clickUrl"));
-            shop.setPhotoUrl((String)item.get("http:"+"picUrl"));
-            shop.setShopTitle((String)item.get("title"));
-            shop.setShopNick((String)shopt.get("shopName"));
-            shop.setItemDescription((String)item.get(""));
-            shop.setShopId((String)item.get(""));
-            shop.setShopFrom((String)item.get(""));
-            //shop.setFreeStartTime( Common.dateToStamp((String)shopt.get("effectiveStartTime")));
-           // shop.setFreeEndTime( Common.dateToStamp((String)shopt.get("effectiveEndTime")));
-            shop.setGoodsSum(shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")));
-            shop.setShopType( shopt.get("retStatus")=="0" ? 0 : 0);
-            shop.setRetStatus( shopt.get("retStatus")=="0" ? 0 : 0);
-            shop.setItemId( String.valueOf(item.get("itemId")));
-            shop.setLensId(String.valueOf(item.get("itemId")));
-            shop.setCouponKey((String)shopt.get("couponKey"));
-            shopService.insertShop(shop);
 
-        }
+        JsonParser parse =new JsonParser();  //创建json解析器
+        try {
+            JsonObject json = (JsonObject) parse.parse(result);
 
-        long time2=System.currentTimeMillis();
-        System.out.println("当前程序耗时："+(time2-time1)+"ms");
+            boolean success = json.get("success").getAsBoolean();
+            JsonObject jsobject = json.get("result").getAsJsonObject();
+            JsonArray jsarr = jsobject.get("couponList").getAsJsonArray();
+
+            if(!success || jsarr.isJsonNull()){
+                con.sendLogger("获取优惠卷商户列表异常："+json.get("message").toString());
+            }
+
+            for(int i=0;i<jsarr.size();i++){
+                Shop shop = new Shop();
+                JsonObject subObject=jsarr.get(i).getAsJsonObject();
+                JsonObject item = subObject.get("item").getAsJsonObject();
+                int  hasadd = shopService.findLaseStartTime(subObject.get("effectiveStartTime").getAsString(),item.get("itemId").getAsString());
+
+                System.out.println("计数总数----------------------------："+hasadd);
+                if(hasadd==0){
+                    shop.setTotalPrice(item.get("reservePrice").getAsFloat());
+                    shop.setFreePrice(item.get("discountPrice").getAsFloat());
+                    float price = item.get("reservePrice").getAsFloat()-item.get("discountPrice").getAsFloat();
+                    shop.setPrice(price);
+                    shop.setCommissionRate(subObject.get("startFee").getAsFloat());
+                    shop.setCouponTotalCount(subObject.get("amount").getAsInt());
+                    shop.setCouponInfo(subObject.get("startFee").getAsFloat());
+                    shop.setCouponRemainCount(subObject.get("amount").getAsInt());
+                    shop.setCouponClickUrl("http:"+item.get("clickUrl").getAsString());
+                    shop.setPhotoUrl("http:"+item.get("picUrl").getAsString());
+                    shop.setShopTitle(item.get("title").getAsString());
+                    shop.setShopNick(subObject.get("shopName").getAsString());
+                    shop.setItemDescription("");
+                    shop.setShopId(item.get("itemId").getAsString());
+                    shop.setShopFrom("");
+                    shop.setFreeStartTime(con.dateToStamp(subObject.get("effectiveStartTime").getAsString(),true));
+                    shop.setFreeEndTime(con.dateToStamp(subObject.get("effectiveEndTime").getAsString(),true));
+                    shop.setGoodsSum(subObject.get("amount").getAsInt());
+                    shop.setShopType( subObject.get("retStatus").getAsInt());
+                    shop.setRetStatus(subObject.get("retStatus").getAsInt());
+                    shop.setItemId(item.get("itemId").getAsString());
+                    shop.setLensId(item.get("lensId").getAsString());
+                    shop.setCouponKey(subObject.get("couponKey").getAsString());
+                    shopService.insertShop(shop);
+                }
+            }
+            long time2=System.currentTimeMillis();
+            System.out.println("当前程序耗时："+(time2-time1)+"ms");
+        }catch (JsonParseException jse){
+            con.sendLogger("获取优惠卷商户列表出现错误："+jse);
+            jse.printStackTrace();
+        }
+//        Gson gson = new Gson();
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map = gson.fromJson(result, map.getClass());
+//        Map<String, Object> couponList = (Map<String, Object>) map.get("result");
+//        ArrayList<Object> maparray = (ArrayList<Object>) couponList.get("couponList");
+//        Map<Integer,Object> shops = new HashMap<Integer, Object>();
+//        Iterator<Object> iter = maparray.iterator();
+//
+//        int i=0;
+//        while(iter.hasNext()){  //执行过程中会执行数据锁定，性能稍差，若在循环过程中要去掉某个元素只能调用iter.remove()方法。
+//            shops.put(i,iter.next());
+//            i++;
+//        }
+//        Shop shop = new Shop();
+//        for (Integer key : shops.keySet()) {
+//            //System.out.println("Key = " + shops.get(key)+"\n");
+//            Map<String, Object> shopt = (Map<String, Object>) shops.get(key);
+//            Map<String, Object> item = (Map<String, Object>) shopt.get("item");
+//            shop.setTotalPrice(Float.parseFloat((String)item.get("reservePrice")));
+//            shop.setFreePrice(Float.parseFloat((String)item.get("discountPrice")));
+//            float price = Float.parseFloat((String)item.get("reservePrice"))-Float.parseFloat((String)item.get("discountPrice"));
+//            shop.setPrice(price);
+//            shop.setCommissionRate(Float.parseFloat((String)shopt.get("startFee")));
+//            shop.setCouponTotalCount( shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")) );
+//            shop.setCouponInfo(Float.parseFloat((String)item.get("discountPrice")));
+//            shop.setCouponRemainCount(shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")));
+//            shop.setCouponClickUrl((String)item.get("http:"+"clickUrl"));
+//            shop.setPhotoUrl((String)item.get("http:"+"picUrl"));
+//            shop.setShopTitle((String)item.get("title"));
+//            shop.setShopNick((String)shopt.get("shopName"));
+//            shop.setItemDescription((String)item.get(""));
+//            shop.setShopId((String)item.get(""));
+//            shop.setShopFrom((String)item.get(""));
+//            //shop.setFreeStartTime( Common.dateToStamp((String)shopt.get("effectiveStartTime")));
+//           // shop.setFreeEndTime( Common.dateToStamp((String)shopt.get("effectiveEndTime")));
+//            shop.setGoodsSum(shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")));
+//            shop.setShopType( shopt.get("retStatus")=="0" ? 0 : 0);
+//            shop.setRetStatus( shopt.get("retStatus")=="0" ? 0 : 0);
+//            shop.setItemId( String.valueOf(item.get("itemId")));
+//            shop.setLensId(String.valueOf(item.get("itemId")));
+//            shop.setCouponKey((String)shopt.get("couponKey"));
+//            shopService.insertShop(shop);
+//
+//        }
+//
+//        long time2=System.currentTimeMillis();
+//        System.out.println("当前程序耗时："+(time2-time1)+"ms");
     }
 
 
@@ -137,7 +192,15 @@ public class TimerController {
 
 
 
-
+//        public static void main(String[] args){
+//            String str =  "1541299560";
+//            String str1 = "1543891560";
+//            if((Integer.parseInt(str)-Integer.parseInt(str1))<0){
+//                System.out.println(111);
+//            }else{
+//                System.out.println(222);
+//            }
+//        }
 
 
 

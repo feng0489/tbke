@@ -31,7 +31,20 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<Shop> findShopById(int id) {
+    public Shop findShopById(int id) {
         return shopMapper.selectById(id);
+    }
+
+    @Override
+    public List<Shop> findShopByStartTime(String startTime) {
+        return shopMapper.selectByStartTime(startTime);
+    }
+
+    @Override
+    public int findLaseStartTime(String startTime,String itmeId) {
+        int shop = shopMapper.selectLastStartTime(startTime,itmeId);
+
+        System.out.println("基数-------------------------------"+shop);
+       return shop;
     }
 }

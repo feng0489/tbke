@@ -12,5 +12,11 @@ public interface ShopService {
 
     int insertShop(Shop shop);
 
-    List<Shop> findShopById(int id);
+    Shop findShopById(int id);
+
+    List<Shop> findShopByStartTime(String startTime);
+
+    int findLaseStartTime(String startTime,String itmeId);
+
+
 }
