@@ -42,9 +42,6 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public int findLaseStartTime(String startTime,String itmeId) {
-        int shop = shopMapper.selectLastStartTime(startTime,itmeId);
-
-        System.out.println("基数-------------------------------"+shop);
-       return shop;
+       return shopMapper.selectLastStartTime(startTime,itmeId);
     }
 }

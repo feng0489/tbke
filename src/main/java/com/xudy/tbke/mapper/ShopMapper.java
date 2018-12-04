@@ -18,10 +18,10 @@ public interface ShopMapper {
                           "VALUES (#{totalPrice}, #{freePrice}, #{price},  #{commissionRate}, #{couponTotalCount}, #{couponInfo}, #{couponRemainCount}, #{couponClickUrl}, #{photoUrl}, #{shopTitle}, #{shopNick}, #{itemDescription}, #{shopId}, #{title}, #{shopFrom}, #{freeStartTime}, #{freeEndTime}, #{goodsSum}, #{shopType},#{retStatus},#{itemId},#{lensId},#{couponKey});")
     int insert(Shop shop);
 
-    @Select("select free_start_time from shop where free_start_time = #{freeStartTime}")
+    @Select({"select free_start_time from shop where free_start_time = #{freeStartTime}"})
     List<Shop> selectByStartTime(String freeStartTime);
 
-    @Select("select count(id) as count from shop where free_start_time=#{freeStartTime} and itemId=#{itmeId} ")
+   // @Select({"select count(id) as count from shop where free_start_time='${freeStartTime}' and itemId='${itmeId}'"})
     int selectLastStartTime(@Param("freeStartTime") String freeStartTime, @Param("itmeId") String itmeId);
 
     @Select("select * from shop where id=#{id}")

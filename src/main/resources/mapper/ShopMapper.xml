@@ -26,6 +26,7 @@
         <id column="couponKey" property="couponKey" jdbcType="VARCHAR" />
         <id column="count" property="count" jdbcType="INTEGER" />
 
+        <!--<result column="budget" property="budget" jdbcType="INTEGER" />-->
 
         <!-- ofType指定students集合中的对象类型 -->
         <!--<association property="claimFilesModelList" javaType="cn.group.xudy.model.ClaimFilesModel">-->
@@ -44,25 +45,11 @@
     </sql>
 
 
-    <select id="selectShop" resultMap="ShopResultMap">
-        select * from shop
-    </select>
-
-    <select id="selectShopById">
-        SELECT * FROM shop WHERE id=#{id}
-    </select>
-
-    <select id="fingLastStartTime"  resultType="java.lang.Integer">
-        select count(id) as count from shop where free_start_time=#{freeStartTime} and itemId=#{itmeId}
+    <select id="selectLastStartTime"  resultType="java.lang.Integer">
+        select count(id) as count from shop where free_start_time= '${freeStartTime}' and itemId='${itmeId}'
     </select>
 
 
-
-
-    <insert id="insertShop">
-        INSERT INTO shop(total_price, free_price, price, commission_rate, coupon_total_count, coupon_info, coupon_remain_count, coupon_click_url, photo_url, shop_title, shop_nick, item_description, shop_id, title, shop_from, free_start_time, free_end_time, goods_sum, shop_type,retStatus,itemId,lensId,couponKey)
-                          VALUES (#{total_price}, #{free_price}, #{price},  #{commission_rate}, #{coupon_total_count}, #{coupon_info}, #{coupon_remain_count}, #{coupon_click_url}, #{photo_url}, #{shop_title}, #{shop_nick}, #{item_description}, #{shop_id}, #{title}, #{shop_from}, #{free_start_time}, #{free_end_time}, #{goods_sum}, #{shop_type},#{retStatus},#{itemId},#{lensId},#{couponKey});
-    </insert>
 
     <!--<select id="getStudent" parameterType="int" resultType="cn.group.xudy.model.ClaimFilesModel">-->
         <!--SELECT * FROM claim_files WHERE claim_id=#{id}-->
