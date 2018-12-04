@@ -5,14 +5,10 @@ package com.xudy.tbke.config;
 
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import javax.xml.crypto.Data;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -189,34 +185,54 @@ public class HttpUtils {
         parameters.put("queryCount", "500");
         String result = httpGet("http://uland.taobao.com/cp/coupon_list", parameters);
 
-        //System.out.println("String:"+result);
-        Gson gson = new Gson();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map = gson.fromJson(result, map.getClass());
-        Map<String, Object> couponList = (Map<String, Object>) map.get("result");
-        ArrayList<Object> maparray = (ArrayList<Object>) couponList.get("couponList");
-        Map<Integer,Object> shops = new HashMap<Integer, Object>();
-        Iterator<Object> iter = maparray.iterator();
-        long time1=System.currentTimeMillis();
-        int i=0;
-        while(iter.hasNext()){  //执行过程中会执行数据锁定，性能稍差，若在循环过程中要去掉某个元素只能调用iter.remove()方法。
-            //System.out.println(iter.next());
-            shops.put(i,iter.next());
-            i++;
+        /**
+         * json转为对象
+         */
+
+        JsonParser parse =new JsonParser();  //创建json解析器
+        try {
+            long time1=System.currentTimeMillis();
+            JsonObject json = (JsonObject) parse.parse(result);
+
+            //普通的json格式{"success":true,"message":""}
+            System.out.println("这个一个json数据类型："+json.get("result").getAsJsonObject());
+            System.out.println("这是个Boolean数据类型："+json.get("success").getAsBoolean());
+            System.out.print("这个是个String数据类型：");
+            System.out.println(json.get("message").toString()== null ? "":json.get("message").toString());
+            //包含数组格式的json{
+            //    "cat":"it",
+            //    "language":[
+            //        {"id":1,"ide":"eclipse","name":Java},
+            //        {"id":2,"ide":"XCode","name":"Swift"},
+            //        {"id":3,"ide":"Visual Stdio","name":"C#"}
+            //    ],
+            //    "pop":true
+            //}
+             JsonObject js = json.get("result").getAsJsonObject();
+             System.out.println("这个是个包含数组格式的json："+js.get("couponList").getAsJsonArray());
+             System.out.println("这个是个Int数据类型："+js.get("totalCount").getAsInt());
+
+             JsonArray jsarr = js.get("couponList").getAsJsonArray();
+
+            for(int i=0;i<jsarr.size();i++){
+                System.out.println("第"+(i+1)+"个---------------");
+                JsonObject subObject=jsarr.get(i).getAsJsonObject();
+                System.out.println("retStatus:"+subObject.get("retStatus").getAsInt());
+                System.out.println("couponKey:"+subObject.get("couponKey").getAsString());
+                System.out.println("effectiveStartTime:"+subObject.get("effectiveStartTime").getAsString());
+
+                JsonObject item = subObject.get("item").getAsJsonObject();
+                System.out.println("clickUrl:"+"http:"+item.get("clickUrl").getAsString());
+                System.out.println("picUrl:"+"http:"+item.get("picUrl").getAsString());
+                System.out.println("title:"+item.get("title").getAsString());
+            }
+
+            long time2=System.currentTimeMillis();
+           System.out.println("当前程序耗时："+(time2-time1)+"ms");
+        }catch (JsonParseException jse){
+            jse.printStackTrace();
         }
 
-        //System.out.println("Map:"+shops+"\n");
-        int j = 0;
-        for (Integer key : shops.keySet()) {
-            //System.out.println("Key = " + shops.get(key)+"\n");
-            Map<String, Object> shop = (Map<String, Object>) shops.get(key);
-            Map<String, Object> item = (Map<String, Object>) shop.get("item");
-            System.out.println(j+"title:" +item.get("title")+"\n");
-            j++;
-        }
-
-        long time2=System.currentTimeMillis();
-        System.out.println("当前程序耗时："+(time2-time1)+"ms");
 
     }
 }

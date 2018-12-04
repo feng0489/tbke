@@ -76,8 +76,8 @@ public class TimerController {
             shop.setItemDescription((String)item.get(""));
             shop.setShopId((String)item.get(""));
             shop.setShopFrom((String)item.get(""));
-            shop.setFreeStartTime( Common.dateToStamp((String)shopt.get("effectiveStartTime")));
-            shop.setFreeEndTime( Common.dateToStamp((String)shopt.get("effectiveEndTime")));
+            //shop.setFreeStartTime( Common.dateToStamp((String)shopt.get("effectiveStartTime")));
+           // shop.setFreeEndTime( Common.dateToStamp((String)shopt.get("effectiveEndTime")));
             shop.setGoodsSum(shopt.get("amount")=="" ? 0 : Integer.valueOf((String)shopt.get("amount")));
             shop.setShopType( shopt.get("retStatus")=="0" ? 0 : 0);
             shop.setRetStatus( shopt.get("retStatus")=="0" ? 0 : 0);
