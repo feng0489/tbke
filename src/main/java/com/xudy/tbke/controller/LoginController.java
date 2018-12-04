@@ -24,6 +24,7 @@ public class LoginController {
         RespCode res = new RespCode();
         res.setCode(0);
         res.setMsg("ok");
+        System.out.println("dsadasd");
         return  new Result(res,person);
     }
 
