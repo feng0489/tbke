@@ -183,45 +183,40 @@ public class HttpUtils {
      * @param args
      */
     public static void main(String[] args) {
-//        Map<String, String> parameters = new HashMap<String, String>();
-//        parameters.put("pid", "mm_29947720_14832832_57874820");
-//        parameters.put("category", "16,50006843");
-//        parameters.put("queryCount", "500");
-//        String result = httpGet("http://uland.taobao.com/cp/coupon_list", parameters);
-//
-//        //System.out.println("String:"+result);
-//        Gson gson = new Gson();
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map = gson.fromJson(result, map.getClass());
-//        Map<String, Object> couponList = (Map<String, Object>) map.get("result");
-//        ArrayList<Object> maparray = (ArrayList<Object>) couponList.get("couponList");
-//        Map<Integer,Object> shops = new HashMap<Integer, Object>();
-//        Iterator<Object> iter = maparray.iterator();
-//        long time1=System.currentTimeMillis();
-//        int i=0;
-//        while(iter.hasNext()){  //执行过程中会执行数据锁定，性能稍差，若在循环过程中要去掉某个元素只能调用iter.remove()方法。
-//            //System.out.println(iter.next());
-//            shops.put(i,iter.next());
-//            i++;
-//        }
-//
-//        //System.out.println("Map:"+shops+"\n");
-//        int j = 0;
-//        for (Integer key : shops.keySet()) {
-//            //System.out.println("Key = " + shops.get(key)+"\n");
-//            Map<String, Object> shop = (Map<String, Object>) shops.get(key);
-//            Map<String, Object> item = (Map<String, Object>) shop.get("item");
-//            System.out.println(j+"title:" +item.get("title")+"\n");
-//            j++;
-//        }
-//
-//        long time2=System.currentTimeMillis();
-//        System.out.println("当前程序耗时："+(time2-time1)+"ms");
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("pid", "mm_29947720_14832832_57874820");
+        parameters.put("category", "16,50006843");
+        parameters.put("queryCount", "500");
+        String result = httpGet("http://uland.taobao.com/cp/coupon_list", parameters);
 
+        //System.out.println("String:"+result);
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = gson.fromJson(result, map.getClass());
+        Map<String, Object> couponList = (Map<String, Object>) map.get("result");
+        ArrayList<Object> maparray = (ArrayList<Object>) couponList.get("couponList");
+        Map<Integer,Object> shops = new HashMap<Integer, Object>();
+        Iterator<Object> iter = maparray.iterator();
+        long time1=System.currentTimeMillis();
+        int i=0;
+        while(iter.hasNext()){  //执行过程中会执行数据锁定，性能稍差，若在循环过程中要去掉某个元素只能调用iter.remove()方法。
+            //System.out.println(iter.next());
+            shops.put(i,iter.next());
+            i++;
+        }
 
-        String res= "2018-12-02 00:00:00";
-         String ss = Common.dateToStamp(res);
-        System.out.println(ss);
+        //System.out.println("Map:"+shops+"\n");
+        int j = 0;
+        for (Integer key : shops.keySet()) {
+            //System.out.println("Key = " + shops.get(key)+"\n");
+            Map<String, Object> shop = (Map<String, Object>) shops.get(key);
+            Map<String, Object> item = (Map<String, Object>) shop.get("item");
+            System.out.println(j+"title:" +item.get("title")+"\n");
+            j++;
+        }
+
+        long time2=System.currentTimeMillis();
+        System.out.println("当前程序耗时："+(time2-time1)+"ms");
 
     }
 }
