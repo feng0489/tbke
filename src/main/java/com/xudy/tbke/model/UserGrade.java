@@ -8,9 +8,9 @@ public class UserGrade {
     //年化益率
     private int roe;
     //提现手续费
-    private float cash_po;
+    private float cashPo;
     //优惠卷
-    private float free_price;
+    private float freePrice;
 
 
     public UserGrade(){
@@ -18,11 +18,11 @@ public class UserGrade {
     }
 
     public float getFree_price() {
-        return free_price;
+        return freePrice;
     }
 
-    public void setFree_price(float free_price) {
-        this.free_price = free_price;
+    public void setFree_price(float freePrice) {
+        this.freePrice = freePrice;
     }
 
     public int getRoe() {
@@ -50,10 +50,10 @@ public class UserGrade {
     }
 
     public float getCash_po() {
-        return cash_po;
+        return cashPo;
     }
 
-    public void setCash_po(float cash_po) {
-        this.cash_po = cash_po;
+    public void setCash_po(float cashPo) {
+        this.cashPo = cashPo;
     }
 }
