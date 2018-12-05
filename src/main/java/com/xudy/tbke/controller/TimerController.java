@@ -37,7 +37,7 @@ public class TimerController {
 //        logger.info("定时任务，现在时间："+System.currentTimeMillis());
 //
 //    }
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 1000*30*60)
     private void addShop(){
         long time1=System.currentTimeMillis();
         Common con = new Common();
