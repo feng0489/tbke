@@ -45,7 +45,7 @@ public class TimerController {
         parameters.put("pid", "mm_29947720_14832832_57874820");
         parameters.put("category", "16,50006843");
         parameters.put("queryCount", "500");
-        String result = HttpUtils.httpGet("http://uland.taobao.com/cp/coupon_list", parameters);
+        String result = HttpUtils.httpGet("http://uland.taobao.com/cp/coupon_list", parameters,"");
 
         JsonParser parse =new JsonParser();  //创建json解析器
         try {
@@ -79,6 +79,7 @@ public class TimerController {
                     shop.setCouponClickUrl("http:"+item.get("clickUrl").getAsString());
                     shop.setPhotoUrl("http:"+item.get("picUrl").getAsString());
                     shop.setShopTitle(item.get("title").getAsString());
+                    shop.setTitle(item.get("title").getAsString());
                     shop.setShopNick(subObject.get("shopName").getAsString());
                     shop.setItemDescription("");
                     shop.setShopId(item.get("itemId").getAsString());
@@ -95,7 +96,7 @@ public class TimerController {
                 }
             }
             long time2=System.currentTimeMillis();
-            System.out.println("当前程序耗时："+(time2-time1)+"ms");
+            con.sendLogger("当前程序耗时："+(time2-time1)+"ms");
         }catch (JsonParseException jse){
             con.sendLogger("获取优惠卷商户列表出现错误："+jse);
             jse.printStackTrace();

@@ -48,7 +48,7 @@ public class Common {
     public void sendLogger(String s){
          Logger logger = LoggerFactory.getLogger(getClass());
          Common con = new Common();
-        logger.info("异常："+s+"   时间：" + con.getNow());
+        logger.info("信息："+s+"   时间：" + con.getNow());
     }
 
 
