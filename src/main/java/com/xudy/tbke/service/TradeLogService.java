@@ -1,12 +1,11 @@
-package com.xudy.tbke.mapper;
+package com.xudy.tbke.service;
 
 import com.xudy.tbke.model.TradeLog;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
 
-public interface TradeLogMapper {
+public interface TradeLogService {
 
     public List<Map<String,Object>> selectAll();
 
@@ -14,10 +13,9 @@ public interface TradeLogMapper {
 
     public List<TradeLog> selectByPage(Map<String,Object> map);
 
+    public int getTotal();
+
     public int insertOne(TradeLog tradeLog);
 
     public int insertMore(List<TradeLog> list);
-
-    public int getTotals();
-
 }

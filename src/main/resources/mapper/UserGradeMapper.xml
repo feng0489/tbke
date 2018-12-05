@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xudy.tbke.mapper.">
+
+    <resultMap id="UserGradeResultMap" type="com.xudy.tbke.model.UserGrade" >
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="title" property="title" jdbcType="VARCHAR"/>
+        <id column="roe" property="roe" jdbcType="INTEGER"/>
+        <id column="cash_po" property="cashPo" jdbcType="FLOAT"/>
+        <id column="free_price" property="freePrice" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="UserGreadResultMap">
+        select * from user_grade
+    </select>
+
+    <select id="selectById" resultType="com.xudy.tbke.model.UserGrade" parameterType="int">
+        select * from user_grade u
+        <where>
+            u.id = #{id}
+        </where>
+    </select>
+
+    <select id="selectByPage" resultType="com.xudy.tbke.model.UserGrade" parameterType="map">
+        select * from user_grade
+        <where>
+            limit #{start},#{pageSize}
+        </where>
+    </select>
+
+    <insert id="insertOne" parameterType="com.xudy.tbke.model.UserGrade">
+        insert into user_grade(
+        title,roe,cash_po,free_price
+        )
+        values(
+        #{title},#{roe},#{cashPo},#{freePrice}
+        )
+    </insert>
+
+    <insert id="insertMore">
+        insert into user_grade(
+        title,roe,cash_po,free_price
+        )
+        values
+        <foreach collection="list" item="u" separator=",">
+            (#{u.title},#{u.roe},#{u.cashPo},#{freePrice})
+        </foreach>
+    </insert>
+
+    <select id="getTotals" parameterType="int">
+        select count(*) from user_grade
+    </select>
+
+</mapper>

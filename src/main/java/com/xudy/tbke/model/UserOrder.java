@@ -2,7 +2,7 @@ package com.xudy.tbke.model;
 
 public class UserOrder {
     //主键id
-    private int id;
+    private Integer id;
     //订单号
     private String order;
     //订单号标题
@@ -148,11 +148,11 @@ public class UserOrder {
         this.order = order;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

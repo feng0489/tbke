@@ -2,7 +2,7 @@ package com.xudy.tbke.model;
 
 public class UserGrade {
     //主键id
-    private int id;
+    private Integer id;
     //标题
     private String title;
     //年化益率
@@ -41,11 +41,11 @@ public class UserGrade {
         this.title = title;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
