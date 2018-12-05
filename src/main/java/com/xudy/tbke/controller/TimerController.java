@@ -100,7 +100,7 @@ public class TimerController {
             con.sendLogger("获取优惠卷商户列表出现错误："+jse);
             jse.printStackTrace();
         }catch (Exception sql){
-            con.sendLogger("添加优惠卷商品异常："+sql);
+            con.sendLogger("添加优惠卷商品异常："+sql.getMessage());
             sql.printStackTrace();
         }
 

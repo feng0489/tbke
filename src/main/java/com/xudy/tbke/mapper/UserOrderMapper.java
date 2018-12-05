@@ -1,6 +1,6 @@
 package com.xudy.tbke.mapper;
 
-import com.xudy.tbke.model.User;
+
 import com.xudy.tbke.model.UserOrder;
 
 import java.util.List;
