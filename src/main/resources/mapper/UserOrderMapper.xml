@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+    <resultMap id="UserOrderResultMap" type="com.xudy.tbke.model.UserOrder">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="order" property="order" jdbcType="VARCHAR"/>
+        <id column="title" property="title" jdbcType="VARCHAR"/>
+        <id column="image" property="image" jdbcType="VARCHAR"/>
+        <id column="total_price" property="totalPrice" jdbcType="DOUBLE"/>
+        <id column="sale_price" property="salePrice" jdbcType="DOUBLE"/>
+        <id column="price" property="price" jdbcType="DOUBLE"/>
+        <id column="price_order" property="priceOrder" jdbcType="VARCHAR"/>
+        <id column="creat_time" property="creatTime" jdbcType="INTEGER"/>
+        <id column="deal_time" property="dealTime" jdbcType="INTEGER"/>
+        <id column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <id column="shop_sun" property="shopSun" jdbcType="INTEGER"/>
+        <id column="shop_link" property="shopLink" jdbcType="VARCHAR"/>
+        <id column="order_status" property="orderStatus" jdbcType="TINYINT"/>
+        <id column="roe_status" property="roeStatus" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="UserOrderResultMap">
+        select * from user_order
+    </select>
+
+    <select id="selectById" resultMap="com.xudy.tbke.model.UserOrder" parameterType="int">
+        select * from user_order u
+        <where>
+            u.id = #{id}
+        </where>
+    </select>
+
+    <select id="selectByPage" resultMap="com.xudy.tbke.model.UserOrder" parameterType="map">
+        select * from user_order
+        <where>
+            limit #{start},#{pageSize}
+        </where>
+    </select>
+
+    <insert id="insertOne" parameterType="com.xudy.tbke.model.UserOrder">
+        insert into user_order(
+            order,
+            title,
+            image,
+            total_price,
+            sale_price,
+            price,
+            price_order,
+            creat_time,
+            deal_time,
+            shop_name,
+            shop_sun,
+            shop_link,
+            order_status,
+            roe_status
+        )
+        values(
+            #{order},
+            #{title},
+            #{image},
+            #{totalPrice},
+            #{salePrice},
+            #{price},
+            #{priceOrder},
+            #{creatTime},
+            #{dealTime},
+            #{shopName},
+            #{shopSun},
+            #{shopLink},
+            #{orderStatus},
+            #{roeStatus}
+        )
+    </insert>
+
+    <insert id="insertMore">
+        insert into user_order(
+            order,
+            title,
+            image,
+            total_price,
+            sale_price,
+            price,
+            price_order,
+            creat_time,
+            deal_time,
+            shop_name,
+            shop_sun,
+            shop_link,
+            order_status,
+            roe_status
+        )
+        values
+        <foreach collection="list" item="u" separator=",">
+            (
+                #{u.order},
+                #{u.title},
+                #{u.image},
+                #{u.totalPrice},
+                #{u.salePrice},
+                #{u.price},
+                #{u.priceOrder},
+                #{u.creatTime},
+                #{u.dealTime},
+                #{u.shopName},
+                #{u.shopSun},
+                #{u.shopLink},
+                #{u.orderStatus},
+                #{u.roeStatus}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getTotals" parameterType="int">
+        select count(*) from user_order
+    </select>
+</mapper>

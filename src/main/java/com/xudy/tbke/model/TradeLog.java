@@ -2,7 +2,7 @@ package com.xudy.tbke.model;
 
 public class TradeLog {
     //主键id
-    private int id;
+    private Integer id;
     //交易订单号
     private String tradOrder;
     //用户ID
@@ -88,11 +88,11 @@ public class TradeLog {
         this.poPrice = poPrice;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
