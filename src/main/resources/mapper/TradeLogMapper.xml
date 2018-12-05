@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xudy.tbke.mapper.TradeLogMapper">
+    <resultMap id="TradeLogResultMap" type="com.xudy.tbke.model.TradeLog">
+
+    </resultMap>
+
+
+    <select id="selectAllTradeLog" resultMap="TradeLogResultMap">
+        select * from trade_log
+    </select>
+
+    <select id="selectTradeLogById" resultMap="TradeLogResultMap" parameterType="int">
+        select * from trade_log t
+        <where>
+            t.id = #{id}
+        </where>
+    </select>
+
+    <select id="selectTradeLogByPage" resultMap="TradeLogResultMap" parameterType="map">
+        select * from trade_log
+        <where>
+            limit #{start},#{pageSize}
+        </where>
+    </select>
+
+    <select id="getTotals" resultType="int">
+        select count(*) from trade_log
+    </select>
+
+    <insert id="insertOne" parameterType="com.xudy.tbke.model.TradeLog">
+        insert into trade_log(
+        trade_order,
+        user_id,
+        username,
+        old_price,
+        trade_price,
+        po_price,
+        remark,
+        title,
+        trade_time,
+        dervice,
+        ip,
+        status
+        )
+        values(
+        #{tradeOrder},
+        #{userId},
+        #{username},
+        #{oldPrice},
+        #{tradePrice},
+        #{poPrice},
+        #{remark},
+        #{title},
+        #{tradeTime},
+        #{dervice},
+        #{ip},
+        #{status}
+        )
+    </insert>
+
+    <insert id="insertMore" >
+        insert into trade_log(
+        trade_order,
+        user_id,
+        username,
+        old_price,
+        trade_price,
+        po_price,
+        remark,
+        title,
+        trade_time,
+        dervice,
+        ip,
+        status
+        )
+        values
+        <foreach collection ="list" item="tra" separator =",">
+            (
+            #{tra.tradeOrder},
+            #{tra.userId},
+            #{tra.username},
+            #{tra.oldPrice},
+            #{tra.tradePrice},
+            #{tra.poPrice},
+            #{tra.remark},
+            #{tra.title},
+            #{tra.tradeTime},
+            #{tra.dervice},
+            #{tra.ip},
+            #{tra.status}
+            )
+        </foreach >
+    </insert>
+</mapper>
