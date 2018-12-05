@@ -17,18 +17,18 @@
         <id column="status" property="status" jdbcType="TINYINT" />
     </resultMap>
 
-    <select id="selectAllTradeLog" resultType="com.xudy.tbke.model.TradeLog">
+    <select id="selectAll" resultType="com.xudy.tbke.model.TradeLog">
         select * from trade_log
     </select>
 
-    <select id="selectTradeLogById" resultType="com.xudy.tbke.model.TradeLog" parameterType="int">
+    <select id="selectById" resultType="com.xudy.tbke.model.TradeLog" parameterType="int">
         select * from trade_log t
         <where>
             t.id = #{id}
         </where>
     </select>
 
-    <select id="selectTradeLogByPage" resultType="com.xudy.tbke.model.TradeLog" parameterType="map">
+    <select id="selectByPage" resultType="com.xudy.tbke.model.TradeLog" parameterType="map">
         select * from trade_log
         <where>
             limit #{start},#{pageSize}

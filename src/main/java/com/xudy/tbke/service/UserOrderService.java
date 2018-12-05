@@ -1,12 +1,11 @@
-package com.xudy.tbke.mapper;
+package com.xudy.tbke.service;
 
-import com.xudy.tbke.model.User;
 import com.xudy.tbke.model.UserOrder;
 
 import java.util.List;
 import java.util.Map;
 
-public interface UserOrderMapper {
+public interface UserOrderService {
 
     public List<Map<String,Object>> selectAll();
 
@@ -14,9 +13,9 @@ public interface UserOrderMapper {
 
     public List<UserOrder> selectByPage(Map<String,Object> map);
 
-    public int insertOne(UserOrder userOrder);
+    public int getTotal();
+
+    public int insertOne(UserOrder userGrade);
 
     public int insertMore(List<UserOrder> list);
-
-    public int getTotals();
 }

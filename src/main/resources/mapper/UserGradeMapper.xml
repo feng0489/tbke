@@ -10,7 +10,7 @@
         <id column="free_price" property="freePrice" jdbcType="DOUBLE"/>
     </resultMap>
 
-    <select id="selectAll" >
+    <select id="selectAll" resultType="com.xudy.tbke.model.UserGrade">
         select * from user_grade
     </select>
 

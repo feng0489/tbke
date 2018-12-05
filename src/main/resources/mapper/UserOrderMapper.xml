@@ -19,7 +19,7 @@
         <id column="roe_status" property="roeStatus" jdbcType="TINYINT"/>
     </resultMap>
 
-    <select id="selectAll" >
+    <select id="selectAll" resultType="com.xudy.tbke.model.UserOrder">
         select * from user_order
     </select>
 

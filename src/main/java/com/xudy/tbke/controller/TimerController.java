@@ -37,7 +37,7 @@ public class TimerController {
 //        logger.info("定时任务，现在时间："+System.currentTimeMillis());
 //
 //    }
-    @Scheduled(fixedRate = 1000*30*60)
+    @Scheduled(fixedRate = 10000)
     private void addShop(){
         long time1=System.currentTimeMillis();
         Common con = new Common();
@@ -101,7 +101,7 @@ public class TimerController {
             con.sendLogger("获取优惠卷商户列表出现错误："+jse);
             jse.printStackTrace();
         }catch (Exception sql){
-            con.sendLogger("添加优惠卷商品异常："+sql.getMessage());
+            con.sendLogger("添加优惠卷商品异常："+sql);
             sql.printStackTrace();
         }
 
